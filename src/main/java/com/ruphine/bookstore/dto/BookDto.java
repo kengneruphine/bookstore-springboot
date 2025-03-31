@@ -1,9 +1,11 @@
 package com.ruphine.bookstore.dto;
 
+import com.ruphine.bookstore.entities.Author;
 import com.ruphine.bookstore.enums.BookGenre;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 
 @Getter
@@ -16,4 +18,5 @@ public class BookDto {
     private String title;
     private BookGenre genre;
     private LocalDate publishDate;
+    private Set<Author> authors;
 }

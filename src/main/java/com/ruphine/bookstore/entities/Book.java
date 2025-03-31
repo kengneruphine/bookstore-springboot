@@ -5,7 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -25,14 +26,19 @@ public class Book {
 
     private BookGenre genre;
 
-    @ManyToMany
+    public Book(String title, BookGenre genre, LocalDate publishDate) {
+        this.title = title;
+        this.genre= genre;
+        this.publishDate=publishDate;
+    }
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name="book_author",
             joinColumns = @JoinColumn(name="book_id"),
             inverseJoinColumns = @JoinColumn(name="author_id")
     )
-    private List<Author> authorsList;
-
+    private Set<Author> authors = new HashSet<>();;
 
 
 }

@@ -1,8 +1,11 @@
 package com.ruphine.bookstore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.List;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -16,11 +19,24 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name="first_name")
     private String firstName;
+
+    @Column(name="last_name")
     private String lastName;
+
     @Column(unique = true, nullable = false)
     private String email;
 
-    @ManyToMany(mappedBy = "authorsList")
-    private List<Book> bookWritten;
+    public Author(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
+
+    @ManyToMany(mappedBy = "authors", cascade = { CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnore
+    private Set<Book> books = new HashSet<>();;
+
 }

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,6 +24,14 @@ public class Book {
     private LocalDate publishDate;
 
     private BookGenre genre;
+
+    @ManyToMany
+    @JoinTable(
+            name="book_author",
+            joinColumns = @JoinColumn(name="book_id"),
+            inverseJoinColumns = @JoinColumn(name="author_id")
+    )
+    private List<Author> authorsList;
 
 
 

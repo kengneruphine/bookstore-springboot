@@ -3,17 +3,17 @@ package com.ruphine.bookstore.controllers;
 import com.ruphine.bookstore.dto.BookDto;
 import com.ruphine.bookstore.services.BookService;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/vi/books")   //defining the base Url
+@RequestMapping("/api/v1/books")   //defining the base Url
 public class BookController {
 
     @Autowired
@@ -46,5 +46,10 @@ public class BookController {
     public ResponseEntity<String> deleteBook(@PathVariable Long bookId){
         bookService.deleteBookById(bookId);
         return ResponseEntity.ok("Book deleted successfully");
+    }
+
+    @GetMapping("{authorId}/authors")
+    public ResponseEntity<List<BookDto>> getAllBooksByAuthor(@PathVariable Long authorId){
+        return new ResponseEntity<>(bookService.getBooksByAuthorId(authorId), HttpStatus.OK);
     }
 }

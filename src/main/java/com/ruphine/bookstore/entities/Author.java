@@ -1,5 +1,6 @@
 package com.ruphine.bookstore.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -35,8 +36,9 @@ public class Author {
     }
 
 
-    @ManyToMany(mappedBy = "authors", cascade = { CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore
+    @JsonBackReference
     private Set<Book> books = new HashSet<>();;
 
 }

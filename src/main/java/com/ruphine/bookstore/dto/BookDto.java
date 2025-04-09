@@ -1,5 +1,6 @@
 package com.ruphine.bookstore.dto;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ruphine.bookstore.entities.Author;
 import com.ruphine.bookstore.enums.BookGenre;
 import lombok.*;
@@ -18,5 +19,6 @@ public class BookDto {
     private String title;
     private BookGenre genre;
     private LocalDate publishDate;
+    @JsonManagedReference
     private Set<Author> authors;
 }

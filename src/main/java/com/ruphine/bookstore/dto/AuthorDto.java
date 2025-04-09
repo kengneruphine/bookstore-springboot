@@ -1,5 +1,7 @@
 package com.ruphine.bookstore.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ruphine.bookstore.entities.Book;
 import lombok.*;
 
@@ -15,6 +17,7 @@ public class AuthorDto {
     private String firstName;
     private String lastName;
     private String email;
-
+    @JsonIgnore
+    @JsonBackReference
     private Set<Book> books;
 }

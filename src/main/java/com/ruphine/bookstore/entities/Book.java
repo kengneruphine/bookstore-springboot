@@ -1,5 +1,7 @@
 package com.ruphine.bookstore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ruphine.bookstore.enums.BookGenre;
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,12 +34,13 @@ public class Book {
         this.publishDate=publishDate;
     }
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch= FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name="book_author",
-            joinColumns = @JoinColumn(name="book_id"),
-            inverseJoinColumns = @JoinColumn(name="author_id")
+            joinColumns = @JoinColumn(name="book_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name="author_id", referencedColumnName = "id")
     )
+    @JsonManagedReference
     private Set<Author> authors = new HashSet<>();;
 
 

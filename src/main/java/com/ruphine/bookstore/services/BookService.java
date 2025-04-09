@@ -44,4 +44,10 @@ public interface BookService {
      */
 
     void deleteBookById(Long bookId);
+
+    /**
+     * Find all Books written by an author
+     * @param authorId
+     */
+    List<BookDto> getBooksByAuthorId(Long authorId);
 }

@@ -4,7 +4,6 @@ package com.ruphine.bookstore.services;
 import com.ruphine.bookstore.dto.BookDto;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Service Interface for Book entity

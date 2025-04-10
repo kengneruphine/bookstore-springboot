@@ -3,7 +3,6 @@ package com.ruphine.bookstore.controllers;
 import com.ruphine.bookstore.dto.BookDto;
 import com.ruphine.bookstore.services.BookService;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

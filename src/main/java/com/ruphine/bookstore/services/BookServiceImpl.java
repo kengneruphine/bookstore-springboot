@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 @AllArgsConstructor
 @Service
@@ -104,7 +104,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void deleteBookById(Long bookId) {
-        Book book = bookRepository.findById(bookId)
+        bookRepository.findById(bookId)
                 .orElseThrow(() -> new ResourceNotFoundException("Book does not exist with given id : " + bookId));
         bookRepository.deleteById(bookId);
     }

@@ -1,6 +1,5 @@
 package com.ruphine.bookstore.dto;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ruphine.bookstore.entities.Author;
 import com.ruphine.bookstore.enums.BookGenre;
 import lombok.*;

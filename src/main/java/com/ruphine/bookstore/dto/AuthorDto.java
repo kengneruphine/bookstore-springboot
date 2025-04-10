@@ -1,6 +1,5 @@
 package com.ruphine.bookstore.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ruphine.bookstore.entities.Book;
 import lombok.*;

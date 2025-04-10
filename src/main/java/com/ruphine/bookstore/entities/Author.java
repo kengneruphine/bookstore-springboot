@@ -36,9 +36,8 @@ public class Author {
     }
 
 
-    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST})
     @JsonIgnore
-    @JsonBackReference
     private Set<Book> books = new HashSet<>();;
 
 }

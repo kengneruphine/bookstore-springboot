@@ -19,6 +19,5 @@ public class BookDto {
     private String title;
     private BookGenre genre;
     private LocalDate publishDate;
-    @JsonManagedReference
     private Set<Author> authors;
 }

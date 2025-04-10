@@ -34,13 +34,12 @@ public class Book {
         this.publishDate=publishDate;
     }
 
-    @ManyToMany(fetch= FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch= FetchType.LAZY,cascade = {CascadeType.PERSIST})
     @JoinTable(
             name="book_author",
             joinColumns = @JoinColumn(name="book_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name="author_id", referencedColumnName = "id")
     )
-    @JsonManagedReference
     private Set<Author> authors = new HashSet<>();;
 
 

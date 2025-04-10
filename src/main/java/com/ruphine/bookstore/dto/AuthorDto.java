@@ -18,6 +18,5 @@ public class AuthorDto {
     private String lastName;
     private String email;
     @JsonIgnore
-    @JsonBackReference
     private Set<Book> books;
 }

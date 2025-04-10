@@ -58,33 +58,40 @@ public class BookServiceImpl implements BookService {
         Book existingBook = bookRepository.findById(bookId)
                 .orElseThrow(() -> new ResourceNotFoundException("Book does not exist with given id : " + bookId));
 
-        if(updatedBook.getTitle() != null && !updatedBook.getTitle().isEmpty()){
+        if (updatedBook.getTitle() != null && !updatedBook.getTitle().isEmpty()) {
             existingBook.setTitle(updatedBook.getTitle());
         }
 
-        if(updatedBook.getGenre() != null && updatedBook.getGenre() != BookGenre.UNKNOWN){
+        if (updatedBook.getGenre() != null && updatedBook.getGenre() != BookGenre.UNKNOWN) {
             existingBook.setGenre(updatedBook.getGenre());
         }
 
-        if(updatedBook.getPublishDate() != null){
+        if (updatedBook.getPublishDate() != null) {
             existingBook.setPublishDate(updatedBook.getPublishDate());
         }
 
         //Updating the authors list
-        if(updatedBook.getAuthors() !=null  && !updatedBook.getAuthors().isEmpty()){
-            Set<Author> updatedAuthors = updatedBook.getAuthors().stream()
-                            .map(authorDto-> authorRepository.findById(authorDto.getId())
-                                    .orElseGet(() -> authorRepository.save(new Author( // Either fetch existing or create a new author
-                                            authorDto.getFirstName(),
-                                            authorDto.getLastName(),
-                                            authorDto.getEmail() ))))
-                                    .collect(Collectors.toSet());
-            existingBook.setAuthors(updatedAuthors);
+        if (updatedBook.getAuthors() != null && !updatedBook.getAuthors().isEmpty()) {
+            Set<Author> existingAuthors = existingBook.getAuthors();
+            if (existingAuthors == null) {
+                existingAuthors = new HashSet<>();
+            }
+
+            for (Author authorDto : updatedBook.getAuthors()) {
+                Author author = authorRepository.findById(authorDto.getId())
+                        .orElseGet(() -> authorRepository.save(
+                                new Author(    // Either fetch existing or create a new author
+                                        authorDto.getFirstName(),
+                                        authorDto.getLastName(),
+                                        authorDto.getEmail()
+                                )));
+                existingAuthors.add(author);
+            }
+            existingBook.setAuthors(existingAuthors);
         }
 
         Book updatedBookObj = bookRepository.save(existingBook);
         return BookMapper.mapToBookDto(updatedBookObj);
-
     }
 
     @Override

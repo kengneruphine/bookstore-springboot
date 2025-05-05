@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -55,18 +56,22 @@ public class AuthorServiceImpl implements AuthorService{
         }
 
         //checking the book list
-        if(updatedAuthor.getBooks() !=null && !updatedAuthor.getBooks().isEmpty()){
-            Set<Book> updatedBook = updatedAuthor.getBooks().stream()
-                    .map(bookDto -> bookRepository.findById(bookDto.getId())
-                            .orElseGet(() -> bookRepository.save(new Book(
-                                    bookDto.getTitle(),
-                                    bookDto.getGenre(),
-                                    bookDto.getPublishDate()
-                            ))))
-                    .collect(Collectors.toSet());
-            existingAuthor.setBooks(updatedBook);
-        }
+        if(updatedAuthor.getBooks() !=null && !updatedAuthor.getBooks().isEmpty()) {
+            Set<Book> existingBooks = existingAuthor.getBooks();
+            if (existingBooks == null) {
+                existingBooks = new HashSet<>();
+            }
 
+            for (Book bookDto : updatedAuthor.getBooks()) {
+                Book book = bookRepository.findById(bookDto.getId())
+                        .orElseGet(() -> bookRepository.save(new Book(
+                                bookDto.getTitle(),
+                                bookDto.getGenre(),
+                                bookDto.getPublishDate())));
+                existingBooks.add(book); // add to existing set (no duplicates if using Set)
+            }
+            existingAuthor.setBooks(existingBooks);
+        }
 
         Author updatedAuthorObj = authorRepository.save(existingAuthor);
         return AuthorMapper.mapToAuthorDto(updatedAuthorObj);

@@ -31,3 +31,23 @@ build/
 
 ### VS Code ###
 .vscode/
+
+## Maven Wrapper ###
+.mvn/wrapper/maven-wrapper.jar
+mvnw
+mvnw.cmd
+
+### Gradle Wrapper ###
+gradlew
+gradlew.bat
+
+### Gradle ###
+.gradle
+target/
+
+### Git ###
+*.orig
+.gitattributes
+
+### Vs Code ###
+.vscode/

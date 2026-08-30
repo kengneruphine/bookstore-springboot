@@ -37,7 +37,7 @@ cd bookstore-springboot
 Make sure you have [Maven](https://maven.apache.org/) installed, then run:
 
 ```bash
-mvn clean install
+mvn clean package -DskipTests
 ```
 
 ### 3. Run the application
@@ -50,6 +50,14 @@ mvn spring-boot:run
 
 By default, the app will run on `http://localhost:8080`.
 
+### 4. Test the application
+Sample testing locally via Postman:
+
+1. Request:
+![Request](assets/screenshots/test-request-in-localhost.png)
+
+2. Response:
+![Response](assets/screenshots/test-response-in-localhost.png)
 
 ## API Documentation
 
